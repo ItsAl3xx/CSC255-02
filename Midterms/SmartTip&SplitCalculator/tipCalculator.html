@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Smart Tip & Split Calculator</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 400px;
+      margin: 30px auto;
+      border: 1px solid #ccc;
+      padding: 20px;
+      border-radius: 8px;
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    label {
+      display: block;
+      margin-top: 12px;
+      font-weight: bold;
+    }
+
+    input {
+      width: 100%;
+      padding: 8px;
+      margin-top: 4px;
+    }
+
+    #resultsBox {
+      margin-top: 20px;
+      background-color: #f5f5f5;
+      padding: 15px;
+      border-radius: 6px;
+    }
+
+    #errorMsg {
+      color: red;
+      font-weight: bold;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Smart Tip & Split Calculator</h1>
+
+  <label for="service-quality">Quality of Service:</label>
+  <select id="service-quality" onchange="updateTipFromService()">
+    <option value="">- Select Quality of Service -</option>
+    <option value="terrible">Terrible (5%)</option>
+    <option value="poor">Poor (10%)</option>
+    <option value="good">Good (15%)</option>
+    <option value="great">Great (20%)</option>
+    <option value="excellent">Excellent (25%)</option>
+  </select>
+
+  <label for="bill">Enter Bill Amount ($):</label>
+  <input type="number" id="bill" placeholder="ex: 10.21" />
+
+  <label>Select Tip Percentage:</label>
+  <div class="tip-buttons">
+    <button class="tip-btn" data-tip="10" onclick="selectTip(this)">10%</button>
+    <button class="tip-btn" data-tip="15" onclick="selectTip(this)">15%</button>
+    <button class="tip-btn" data-tip="20" onclick="selectTip(this)">20%</button>
+    <button class="tip-btn" data-tip="25" onclick="selectTip(this)">25%</button>
+  </div>
+
+  <label for="custom-tip">Or enter custom tip (%):</label>
+  <input type="number" id="custom-tip" placeholder="ex: 10.21" />
+
+  <label for="people">Split between how many people?</label>
+  <input type="number" id="people" value="1" min="1" />
+
+  <button id="calcBtn">Calculate</button>
+
+  <div id="errorMsg"></div>
+  <div id="resultsBox"></div>
+
+  <script>
+    
+    function calculate() {
+      const bill = parseFloat(document.getElementById("bill").value);
+      const customTip = document.getElementById("custom-tip").value;
+      const people = parseInt(document.getElementById("people").value);
+
+      let tipPercent = 0;
+      const selectedBtn = document.querySelector(".tip-btn.selected");
+      if (selectedBtn) {
+        tipPercent = parseFloat(selectedBtn.dataset.tip);
+      }
+      if (customTip) {
+        tipPercent = parseFloat(customTip);
+      }
+
+      if (isNaN(bill) || bill <= 0) {
+        document.getElementById("errorMsg").innerHTML = "Please enter a valid bill amount.";
+        document.getElementById("resultsBox").innerHTML = "";
+        return;
+      }
+      if (isNaN(people) || people <= 0) {
+        document.getElementById("errorMsg").innerHTML = "Number of people must be at least 1.";
+        document.getElementById("resultsBox").innerHTML = "";
+        return;
+      }
+      if (tipPercent < 0) {
+        document.getElementById("errorMsg").innerHTML = "Tip percentage cannot be negative.";
+        document.getElementById("resultsBox").innerHTML = "";
+        return;
+      }
+
+      document.getElementById("errorMsg").innerHTML = "";
+
+      const tipAmount = bill * (tipPercent / 100);
+      const totalWithTip = bill + tipAmount;
+      const perPerson = totalWithTip / people;
+
+      document.getElementById("resultsBox").innerHTML = `
+        <p>Tip Amount: $${tipAmount.toFixed(2)}</p>
+        <p>Total With Tip: $${totalWithTip.toFixed(2)}</p>
+        <p>Per Person: $${perPerson.toFixed(2)}</p>
+      `;
+    }
+
+    function selectTip(el) {
+      document.querySelectorAll(".tip-btn").forEach(btn => btn.classList.remove("selected"));
+      el.classList.add("selected");
+      document.getElementById("custom-tip").value = "";
+    }
+
+    function updateTipFromService() {
+      const quality = document.getElementById("service-quality").value;
+      const tipMap = { terrible: 5, poor: 10, good: 15, great: 20, excellent: 25 };
+      document.getElementById("custom-tip").value = tipMap[quality] || "";
+      document.querySelectorAll(".tip-btn").forEach(btn => btn.classList.remove("selected"));
+    }
+
+    document.getElementById("calcBtn").addEventListener("click", calculate);
+  </script>
+</body>
+</html>

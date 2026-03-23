@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>A Styled Table</title>
+  <style type="text/css">
+    table {
+      border-collapse: separate;
+      border: 1px solid black;
+    }
+
+    th, td {
+      border: 1px solid black;
+    }
+
+    th, td {
+      padding: 4px 8px;
+      text-align: center;
+    }
+
+    caption {
+      font-size: 18pt;
+      font-weight: bold;
+    }
+
+    td.win {
+      font-size: 1.2em;
+      color: red;
+    }
+
+    td.lose {
+      font-size: 1.1em;
+      color: blue;
+    }
+  </style>
+</head>
+<body>
+  <table>
+    <tr>
+      <th colspan="2" style="font-size: 18pt;">Football Scores</th>
+    </tr>
+    <tr>
+      <th>Team</th>
+      <th>Score</th>
+    </tr>
+    <tr>
+      <th style="font-family: 'Century Gothic'; font-style: italic; color: yellow;">Colorado</th>
+      <td class="win">30</td>
+    </tr>
+    <tr>
+      <th style="font-family: 'Century Gothic'; font-style: italic; color: red;">Nebraska</th>
+      <td class="lose">29</td>
+    </tr>
+    <tr>
+      <th style="font-family: 'Century Gothic'; font-style: italic; color: black;">Iowa State</th>
+      <td class="win">17</td>
+    </tr>
+    <tr>
+      <th style="font-family: 'Century Gothic'; font-style: italic; color: blue;">Kansas</th>
+      <td class="lose">10</td>
+    </tr>
+    <tr>
+      <th style="font-family: 'Century Gothic'; font-style: italic; color: purple;">Kansas State</th>
+      <td class="win">48</td>
+    </tr>
+    <tr>
+      <th style="font-family: 'Century Gothic'; font-style: italic; color: green;">Missouri</th>
+      <td class="lose">13</td>
+    </tr>
+  </table>
+</body>
+</html>
