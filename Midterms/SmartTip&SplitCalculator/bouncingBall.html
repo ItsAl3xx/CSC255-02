@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>Bouncing Ball (HTML 5)</title>
+<script>
+var MIN_X = 0;
+var MIN_Y = 0;
+var WIDTH = 520;
+var HEIGHT = 410;
+var MAX_X = MIN_X + WIDTH - 1;
+var MAX_Y = MIN_Y + HEIGHT - 1;
+var ballRadius = 20;
+
+var ball1X = 100;
+var ball1Y = 100;
+var ball1SpeedX = 4;
+var ball1SpeedY = 3;
+var ball1Color = "#FF1493";
+
+var ball2X = 300;
+var ball2Y = 200;
+var ball2SpeedX = -3;
+var ball2SpeedY = 4;
+var ball2Color = "#00CED1";
+
+var ball3X = 200;
+var ball3Y = 300;
+var ball3SpeedX = 5;
+var ball3SpeedY = -2;
+var ball3Color = "#FF8C00";
+
+var ball4X = 400;
+var ball4Y = 150;
+var ball4SpeedX = -4;
+var ball4SpeedY = -3;
+var ball4Color = "#9370DB";
+
+var context;
+
+function getRandomColor() {
+    var colorNum = Math.floor(Math.random() * 8);
+    if(colorNum == 0) return "#FF1493";
+    if(colorNum == 1) return "#00CED1";
+    if(colorNum == 2) return "#FF8C00";
+    if(colorNum == 3) return "#9370DB";
+    if(colorNum == 4) return "#32CD32";
+    if(colorNum == 5) return "#FF69B4";
+    if(colorNum == 6) return "#00FA9A";
+    if(colorNum == 7) return "#FFD700";
+}
+
+function init() {
+var canvas = document.getElementById('box');
+canvas.width = WIDTH;
+canvas.height = HEIGHT;
+canvas.style.border = "1px solid";
+context = canvas.getContext('2d');
+setInterval(draw, 30);
+}
+
+function draw() {
+context.clearRect(0, 0, WIDTH, HEIGHT);
+
+ball1X = ball1X + ball1SpeedX;
+ball1Y = ball1Y + ball1SpeedY;
+if(ball1X - ballRadius < MIN_X) {
+    ball1SpeedX = -ball1SpeedX;
+    ball1X = MIN_X + ballRadius;
+    ball1Color = getRandomColor();
+}
+if(ball1X + ballRadius > MAX_X) {
+    ball1SpeedX = -ball1SpeedX;
+    ball1X = MAX_X - ballRadius;
+    ball1Color = getRandomColor();
+}
+if(ball1Y - ballRadius < MIN_Y) {
+    ball1SpeedY = -ball1SpeedY;
+    ball1Y = MIN_Y + ballRadius;
+    ball1Color = getRandomColor();
+}
+if(ball1Y + ballRadius > MAX_Y) {
+    ball1SpeedY = -ball1SpeedY;
+    ball1Y = MAX_Y - ballRadius;
+    ball1Color = getRandomColor();
+}
+context.fillStyle = ball1Color;
+context.beginPath();
+context.arc(ball1X, ball1Y, ballRadius, 0, Math.PI*2, true);
+context.closePath();
+context.fill();
+
+ball2X = ball2X + ball2SpeedX;
+ball2Y = ball2Y + ball2SpeedY;
+if(ball2X - ballRadius < MIN_X) {
+    ball2SpeedX = -ball2SpeedX;
+    ball2X = MIN_X + ballRadius;
+    ball2Color = getRandomColor();
+}
+if(ball2X + ballRadius > MAX_X) {
+    ball2SpeedX = -ball2SpeedX;
+    ball2X = MAX_X - ballRadius;
+    ball2Color = getRandomColor();
+}
+if(ball2Y - ballRadius < MIN_Y) {
+    ball2SpeedY = -ball2SpeedY;
+    ball2Y = MIN_Y + ballRadius;
+    ball2Color = getRandomColor();
+}
+if(ball2Y + ballRadius > MAX_Y) {
+    ball2SpeedY = -ball2SpeedY;
+    ball2Y = MAX_Y - ballRadius;
+    ball2Color = getRandomColor();
+}
+context.fillStyle = ball2Color;
+context.beginPath();
+context.arc(ball2X, ball2Y, ballRadius, 0, Math.PI*2, true);
+context.closePath();
+context.fill();
+
+ball3X = ball3X + ball3SpeedX;
+ball3Y = ball3Y + ball3SpeedY;
+if(ball3X - ballRadius < MIN_X) {
+    ball3SpeedX = -ball3SpeedX;
+    ball3X = MIN_X + ballRadius;
+    ball3Color = getRandomColor();
+}
+if(ball3X + ballRadius > MAX_X) {
+    ball3SpeedX = -ball3SpeedX;
+    ball3X = MAX_X - ballRadius;
+    ball3Color = getRandomColor();
+}
+if(ball3Y - ballRadius < MIN_Y) {
+    ball3SpeedY = -ball3SpeedY;
+    ball3Y = MIN_Y + ballRadius;
+    ball3Color = getRandomColor();
+}
+if(ball3Y + ballRadius > MAX_Y) {
+    ball3SpeedY = -ball3SpeedY;
+    ball3Y = MAX_Y - ballRadius;
+    ball3Color = getRandomColor();
+}
+context.fillStyle = ball3Color;
+context.beginPath();
+context.arc(ball3X, ball3Y, ballRadius, 0, Math.PI*2, true);
+context.closePath();
+context.fill();
+
+ball4X = ball4X + ball4SpeedX;
+ball4Y = ball4Y + ball4SpeedY;
+if(ball4X - ballRadius < MIN_X) {
+    ball4SpeedX = -ball4SpeedX;
+    ball4X = MIN_X + ballRadius;
+    ball4Color = getRandomColor();
+}
+if(ball4X + ballRadius > MAX_X) {
+    ball4SpeedX = -ball4SpeedX;
+    ball4X = MAX_X - ballRadius;
+    ball4Color = getRandomColor();
+}
+if(ball4Y - ballRadius < MIN_Y) {
+    ball4SpeedY = -ball4SpeedY;
+    ball4Y = MIN_Y + ballRadius;
+    ball4Color = getRandomColor();
+}
+if(ball4Y + ballRadius > MAX_Y) {
+    ball4SpeedY = -ball4SpeedY;
+    ball4Y = MAX_Y - ballRadius;
+    ball4Color = getRandomColor();
+}
+context.fillStyle = ball4Color;
+context.beginPath();
+context.arc(ball4X, ball4Y, ballRadius, 0, Math.PI*2, true);
+context.closePath();
+context.fill();
+}
+
+window.addEventListener("load", init, true);
+</script>
+</head>
+<body>
+<section>
+<h2>Bouncing Ball (on HTML 5 Canvas)</h2>
+<canvas id="box">Canvas not supported</canvas>
+</section>
+</body>
+</html>
